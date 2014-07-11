@@ -14,4 +14,5 @@ mv /tmp/en_US* /usr/lib/locale/
 touch /usr/lib/locale/locale-archive
 #
 echo "export LANG=ja_JP.UTF-8" > /.bashrc
-cp -a ./repo/*.repo /etc/yum.repos.d/
+cp -a rpm-gpg/* /etc/pki/rpm-gpg/
+cp -a yum.repos.d/* /etc/yum.repos.d/
