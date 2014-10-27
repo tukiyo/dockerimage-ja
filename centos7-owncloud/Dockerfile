@@ -1,4 +1,4 @@
-FROM tukiyo4/centos7-lampp
+FROM tukiyo3/centos7-lampp
 
 RUN \
   exec >& /root/build-lampp.log ;\
