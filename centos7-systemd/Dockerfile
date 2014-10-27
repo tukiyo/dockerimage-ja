@@ -20,7 +20,7 @@ RUN \
   echo "set smartindent" > /root/.vimrc ;\
   echo "set nowrapscan" >> /root/.vimrc ;\
   echo "set nowrap" >> /root/.vimrc ;\
-  echo "set num" >> /root/.vimrc ;\
+  echo "set nu" >> /root/.vimrc ;\
   echo "colorscheme desert" >> /root/.vimrc ;\
   echo "highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22" >> /root/.vimrc ;\
   echo "highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52" >> /root/.vimrc ;\
