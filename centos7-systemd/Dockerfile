@@ -1,7 +1,7 @@
 FROM centos:centos7
 
 RUN \
-  exec >& /root/build.log ;\
+  exec >& /root/build-systemd.log ;\
   set -eux ;\
   yum swap -y fakesystemd systemd ;\
   unlink /etc/localtime ;\
