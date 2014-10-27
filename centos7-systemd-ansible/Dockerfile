@@ -1,4 +1,4 @@
-FROM tukiyo3/centos7:systemd
+FROM tukiyo3/centos7-ja-systemd:systemd
 
 RUN \
   exec >>& /root/build.log ;\
