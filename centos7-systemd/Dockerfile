@@ -9,30 +9,27 @@ RUN \
   localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 ;\
   rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm ;\
   yum clean all ;\
-  cat > /root/.bashrc <<...
-export HOME=/root
-export EDITOR=vim
-export LANG=ja_JP.UTF-8
-alias ls='ls --color'
-alias vi='vim -p'
-alias vim='vim -p'
-... ;\
-  cat > /root/.vimrc <<...
-set smartindent
-set nowrapscan
-set nowrap
-set num
-colorscheme desert
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
-... ;\
-  cat > /root/.gitconfig <<...
-[user]
-	email = root@localhost.localdomain
-	name = root
-... ;\
+  echo ;\
+  echo "export HOME=/root" > /root/.bashrc ;\
+  echo "export EDITOR=vim" >> /root/.bashrc ;\
+  echo "export LANG=ja_JP.UTF-8" >> /root/.bashrc ;\
+  echo "alias ls='ls --color'" >> /root/.bashrc ;\
+  echo "alias vi='vim -p'" >> /root/.bashrc ;\
+  echo "alias vim='vim -p'" >> /root/.bashrc ;\
+  echo ;\
+  echo "set smartindent" > /root/.vimrc ;\
+  echo "set nowrapscan" >> /root/.vimrc ;\
+  echo "set nowrap" >> /root/.vimrc ;\
+  echo "set num" >> /root/.vimrc ;\
+  echo "colorscheme desert" >> /root/.vimrc ;\
+  echo "highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22" >> /root/.vimrc ;\
+  echo "highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52" >> /root/.vimrc ;\
+  echo "highlight DiffChange cterm=bold ctermfg=10 ctermbg=17" >> /root/.vimrc ;\
+  echo "highlight DiffText   cterm=bold ctermfg=10 ctermbg=21" >> /root/.vimrc ;\
+  echo ;\
+  echo "[user]" > /root/.gitconfig ;\
+  echo "	email = root@localhost.localdomain" >> /root/.gitconfig ;\
+  echo "	name = root" >> /root/.gitconfig ;\
   echo "[info] done."
 
 ENTRYPOINT ["/sbin/init"]
