@@ -1,4 +1,4 @@
-FROM tukiyo3/centos7-ja-systemd:systemd
+FROM tukiyo3/centos7-ja-systemd
 
 RUN \
   exec >& /root/build-ansible.log ;\
