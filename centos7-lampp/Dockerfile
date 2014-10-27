@@ -11,10 +11,10 @@ RUN \
   cd /tmp/setup_centos7/lampp; ./run.sh ;\
   echo ;\
   cd /etc/systemd/system/multi-user.target.wants/ ;\
-  for s in httpd mariadb postfix dovecot zabbix-agent ;\
-  do ;\
-    test ! -e ${s}.service && \
-    ln -s /usr/lib/systemd/system/${s}.service . ;\
-  done ;\
+  test ! -e httpd.service && ln -s /usr/lib/systemd/system/httpd.service . ;\
+  test ! -e mariadb.service && ln -s /usr/lib/systemd/system/mariadb.service . ;\
+  test ! -e postfix.service && ln -s /usr/lib/systemd/system/postfix.service . ;\
+  test ! -e dovecot.service && ln -s /usr/lib/systemd/system/dovecot.service . ;\
+  test ! -e zabbix-agent.service && ln -s /usr/lib/systemd/system/zabbix-agent.service . ;\
   rm -rf /tmp/setup_centos7 ;\
   yum clean all
