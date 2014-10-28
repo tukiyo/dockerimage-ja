@@ -1,7 +1,8 @@
 # usage
 
-    docker run --privileged -it -d -p 8080:80 --name owncloud7 tukiyo3/centos7-owncloud7
+    docker run --privileged -it -d -p 8080:80 --name owncloud7 tukiyo3/centos7-owncloud
     docker exec -it owncloud7 bash
+    mysqladmin -uroot create owncloud
 
 # info 
 
