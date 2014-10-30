@@ -2,7 +2,9 @@ FROM centos:centos6
 
 RUN \
   exec >& /root/build-aipo7.log ;\
+  set -eux ;\
   yum install -y tar sudo ;\
+  sed -i -e "s/^Defaults    requiretty/#Defaults    requiretty/" /etc/sudoers ;\
   yum install -y make gcc readline-devel zlib-devel nmap wget ;\
   cd /usr/local/src ;\
   wget -q https://aipo.googlecode.com/files/aipo7020ja_linux64.tar.gz ;\
