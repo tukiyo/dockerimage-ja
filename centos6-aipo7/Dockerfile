@@ -2,7 +2,6 @@ FROM centos:centos6
 
 RUN \
   exec >& /root/build-aipo7.log ;\
-  set -eux ;\
   yum install -y tar sudo ;\
   yum install -y make gcc readline-devel zlib-devel nmap wget ;\
   cd /usr/local/src ;\
