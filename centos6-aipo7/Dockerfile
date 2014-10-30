@@ -5,7 +5,7 @@ RUN \
   set -eux ;\
   yum install -y tar sudo ;\
   sed -i -e "s/^Defaults    requiretty/#Defaults    requiretty/" /etc/sudoers ;\
-  yum install -y make gcc readline-devel zlib-devel nmap wget ;\
+  yum install -y make gcc readline-devel zlib-devel nmap wget bison flex ;\
   cd /usr/local ;\
   wget -q https://aipo.googlecode.com/files/aipo7020ja_linux64.tar.gz ;\
   tar xzf aipo7020ja_linux64.tar.gz ;\
