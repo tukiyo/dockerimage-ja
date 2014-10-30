@@ -9,7 +9,7 @@ RUN \
   cd /usr/local ;\
   wget -q https://aipo.googlecode.com/files/aipo7020ja_linux64.tar.gz ;\
   wget -q http://iij.dl.sourceforge.jp/aipo/60038/holidays_default.properties \
-       -O /usr/local/aipo/tomcat/webapps/aipo/WEB-INF/conf/ ;\
+       -O /usr/local/aipo/tomcat/webapps/aipo/WEB-INF/conf/holidays_default.properties ;\
   tar xzf aipo7020ja_linux64.tar.gz ;\
   tar xzf aipo7020ja_linux/aipo7020.tar.gz ;\
   rm -rf aipo7020ja_linux* ;\
