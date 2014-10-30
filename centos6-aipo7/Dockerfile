@@ -15,4 +15,5 @@ RUN \
   sh installer.sh > /dev/null ;\
   yum clean all
 
-ENTRYPOINT ["/usr/local/src/aipo/bin/startup.sh"]
+WORKDIR /usr/local/src/aipo/bin/
+ENTRYPOINT ./startup.sh && tail -f /dev/null
