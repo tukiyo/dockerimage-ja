@@ -10,16 +10,16 @@ RUN echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf
 RUN ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/
 RUN /usr/libexec/mariadb-prepare-db-dir
 RUN echo "-------- redmine --------"
-RUN cd /opt
-RUN wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz
-RUN tar xzf redmine-2.6.0.tar.gz
-RUN rm redmine-2.6.0.tar.gz
-RUN ln -s /opt/redmine-2.6.0 /opt/redmine
+RUN cd /opt &&\
+    wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz &&\
+    tar xzf redmine-2.6.0.tar.gz &&\
+    rm redmine-2.6.0.tar.gz &&\
+    ln -s /opt/redmine-2.6.0 /opt/redmine
 RUN cd /opt/redmine
-RUN echo "-------- bundler --------"
-RUN echo 'gem: --no-ri --no-rdoc' > ~/.gemrc
-RUN bundle install
-RUN bundle clean
+    echo "-------- bundler --------" &&\
+    echo 'gem: --no-ri --no-rdoc' > ~/.gemrc &&\
+    bundle install &&\
+    bundle clean
 RUN echo "-------- httpd --------"
 RUN gem install passenger
 RUN yes | passenger-install-apache2-module
