@@ -7,6 +7,7 @@ RUN \
         yum install -y vim wget tar sudo gem rubygem-bundler vlgothic-fonts ;\
         yum install -y {ImageMagick,mariadb,httpd,curl}-devel ;\
         yum install -y mariadb-server httpd ;\
+        sed -i -e "s/^Defaults    requiretty/#Defaults    requiretty/" /etc/sudoers ;\
     echo "-------- mariadb --------" ;\
         echo '[mysqld]' > /etc/my.cnf.d/my_custom.cnf ;\
         echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf ;\
