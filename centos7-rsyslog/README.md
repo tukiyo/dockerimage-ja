@@ -9,3 +9,9 @@
       -v $HOME/rsyslog:/var/log/rsyslog \
       --name rsyslog \
       tukiyo3/centos7-rsyslog
+
+# rsyslog (sender)
+
+/etc/rsyslog.conf
+
+    *.* @@(z9)192.168.100.4:514
