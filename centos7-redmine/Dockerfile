@@ -15,7 +15,7 @@ RUN \
         ln -s /opt/redmine-2.6.0 /opt/redmine ;\
     echo "-------- bundler --------" ;\
         cd /opt/redmine ;\
-	echo "gem: --no-ri --no-rdoc" > /root/.gemrc ;\
+        echo "gem: --no-ri --no-rdoc" > /root/.gemrc ;\
         bundle install ;\
     echo "-------- httpd --------" ;\
         gem install passenger ;\
