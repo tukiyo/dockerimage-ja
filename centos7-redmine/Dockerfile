@@ -1,31 +1,51 @@
 FROM tukiyo3/centos7-devel
 
-RUN echo "-------- yum --------"
-RUN yum install -y vim wget tar gem rubygem-bundler
-RUN yum install -y {ImageMagick,mariadb,httpd,curl}-devel
-RUN yum install -y mariadb-server httpd
-RUN echo "-------- mariadb --------"
-RUN echo '[mysqld]' > /etc/my.cnf.d/my_custom.cnf
-RUN echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf
-RUN ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/
-RUN /usr/libexec/mariadb-prepare-db-dir
-RUN echo "-------- redmine --------"
-RUN cd /opt &&\
-    wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz &&\
-    tar xzf redmine-2.6.0.tar.gz &&\
-    rm redmine-2.6.0.tar.gz &&\
-    ln -s /opt/redmine-2.6.0 /opt/redmine
-RUN cd /opt/redmine
-    echo "-------- bundler --------" &&\
-    echo 'gem: --no-ri --no-rdoc' > ~/.gemrc &&\
-    bundle install &&\
-    bundle clean
-RUN echo "-------- httpd --------"
-RUN gem install passenger
-RUN yes | passenger-install-apache2-module
-RUN ln -s $(find /usr/local/share/gems/gems/ -maxdepth 1 -type d -name "passenger*") /opt/passenger
-RUN ln -s /usr/lib/systemd/system/httpd.service /etc/systemd/system/multi-user.target.wants/
-RUN echo "-------- clean --------"
-RUN yum clean all
+RUN \
+  exec >& /root/build-redmine.log ;\
+  set -eux ;\
+  echo "-------- yum --------" ;\
+  yum install -y vim wget tar gem rubygem-bundler vlgothic-fonts ;\
+  yum install -y {ImageMagick,mariadb,httpd,curl}-devel ;\
+  yum install -y mariadb-server httpd ;\
+  echo "-------- mariadb --------" ;\
+  echo '[mysqld]' > /etc/my.cnf.d/my_custom.cnf ;\
+  echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf ;\
+  ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/ ;\
+  /usr/libexec/mariadb-prepare-db-dir ;\
+  echo "-------- redmine --------" ;\
+  cd /opt ;\
+  wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz ;\
+  tar xzf redmine-2.6.0.tar.gz ;\
+  rm redmine-2.6.0.tar.gz ;\
+  ln -s /opt/redmine-2.6.0 /opt/redmine ;\
+  echo ;\
+  echo 'production:' > /opt/redmine/config/database.yml ;\
+  echo '  adapter: mysql2' >> /opt/redmine/config/database.yml ;\
+  echo '  database: redmine' >> /opt/redmine/config/database.yml ;\
+  echo '  host: localhost' >> /opt/redmine/config/database.yml ;\
+  echo '  username: root' >> /opt/redmine/config/database.yml ;\
+  echo '  password: ""' >> /opt/redmine/config/database.yml ;\
+  echo '  encoding: utf8' >> /opt/redmine/config/database.yml ;\
+  echo ;\
+  echo 'production:' >> /opt/redmine/config/configuration.yml ;\
+  echo '  email_delivery:' >> /opt/redmine/config/configuration.yml ;\
+  echo '    delivery_method: :smtp' >> /opt/redmine/config/configuration.yml ;\
+  echo '    smtp_settings:' >> /opt/redmine/config/configuration.yml ;\
+  echo '      address: "localhost"' >> /opt/redmine/config/configuration.yml ;\
+  echo '      port: 25' >> /opt/redmine/config/configuration.yml ;\
+  echo '      domain: 'redmine.localdomain'' >> /opt/redmine/config/configuration.yml ;\
+  echo '  rmagick_font_path: /usr/share/fonts/vlgothic/VL-Gothic-Regular.ttf' >> /opt/redmine/config/configuration.yml ;\
+  echo "-------- bundler --------" ;\
+  cd /opt/redmine ;\
+  echo 'gem: --no-ri --no-rdoc' > ~/.gemrc ;\
+  bundle install ;\
+  bundle clean ;\
+  echo "-------- httpd --------" ;\
+  gem install passenger ;\
+  yes | passenger-install-apache2-module ;\
+  ln -s $(find /usr/local/share/gems/gems/ -maxdepth 1 -type d -name "passenger*") /opt/passenger ;\
+  ln -s /usr/lib/systemd/system/httpd.service /etc/systemd/system/multi-user.target.wants/ ;\
+  echo "-------- clean --------" ;\
+  yum clean all
 
 ADD redmine.conf /etc/httpd/conf.d/
