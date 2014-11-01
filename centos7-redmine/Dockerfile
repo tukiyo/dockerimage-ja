@@ -24,7 +24,6 @@ RUN \
         cd /opt/redmine ;\
         echo 'gem: --no-ri --no-rdoc' > ~/.gemrc ;\
         bundle install ;\
-        bundle clean ;\
     echo "-------- httpd --------" ;\
         gem install passenger ;\
         yes | passenger-install-apache2-module ;\
