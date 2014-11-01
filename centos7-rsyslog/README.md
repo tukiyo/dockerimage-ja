@@ -3,6 +3,13 @@
     mkdir $HOME/rsyslog
 
     docker run --privileged -it -d \
+      -v $HOME/rsyslog:/var/log/rsyslog \
+      --name rsyslog \
+      tukiyo3/centos7-rsyslog
+
+or
+
+    docker run --privileged -it -d \
       -p 514:514/udp \
       -p 514:514/tcp \
       -p 8080:80 \
@@ -15,3 +22,7 @@
 /etc/rsyslog.conf
 
     *.* @@(z9)192.168.100.4:514
+
+    or 
+
+    *.* @@(z9)rsyslog:514

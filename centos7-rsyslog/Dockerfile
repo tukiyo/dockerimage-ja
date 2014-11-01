@@ -26,5 +26,4 @@ ADD nginx/nginx.conf /etc/nginx/
 EXPOSE 80
 EXPOSE 514/tcp
 EXPOSE 514/udp
-VOLUME ["/var/log/rsyslog/"]
 ENTRYPOINT ["/sbin/init"]
