@@ -12,7 +12,7 @@ RUN \
         echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf ;\
         ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/ ;\
         /usr/libexec/mariadb-prepare-db-dir ;\
-        sudo -u mysql /usr/bin/mysqld_safe --basedir=/usr & ;\
+        sudo -u mysql /usr/bin/mysqld_safe --basedir=/usr \& ;\
     echo "-------- redmine --------" ;\
         cd /opt ;\
         wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz ;\
