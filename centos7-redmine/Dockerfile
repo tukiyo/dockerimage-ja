@@ -36,7 +36,7 @@ ADD files/configuration.yml /opt/redmine/config/
 
 ADD files/redmine.conf /etc/httpd/conf.d/
 
-ADD files/initialize.sh /opt/redmine/
+ADD files/start.sh /opt/redmine/
 
 EXPOSE 80
-ENTRYPOINT sh /opt/redmine/initialize.sh
+WORKDIR /opt/redmine
