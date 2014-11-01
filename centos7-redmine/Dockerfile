@@ -13,7 +13,6 @@ RUN \
         echo 'character-set-server = utf8' >> /etc/my.cnf.d/my_custom.cnf ;\
         ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/ ;\
         /usr/libexec/mariadb-prepare-db-dir ;\
-        sudo -u mysql /usr/bin/mysqld_safe --basedir=/usr \& ;\
     echo "-------- redmine --------" ;\
         cd /opt ;\
         wget http://www.redmine.org/releases/redmine-2.6.0.tar.gz ;\
@@ -46,13 +45,11 @@ RUN \
         echo '      port: 25' >> /opt/redmine/config/configuration.yml ;\
         echo '      domain: 'redmine.localdomain'' >> /opt/redmine/config/configuration.yml ;\
         echo '  rmagick_font_path: /usr/share/fonts/vlgothic/VL-Gothic-Regular.ttf' >> /opt/redmine/config/configuration.yml ;\
-    echo "-------- database --------" ;\
-        mysqladmin create redmine ;\
-        bundle exec rake generate_secret_token ;\
-        RAILS_ENV=production bundle exec rake db:migrate ;\
-        mysqladmin shutdown ;\
     echo "-------- clean --------" ;\
         chown -R apache:apache /opt/redmine ;\
         yum clean all
 
 ADD redmine.conf /etc/httpd/conf.d/
+ADD initialize.sh /opt/redmine/
+EXPOSE 80
+ENTRYPOINT ["/opt/redmine/initialize.sh"]
