@@ -39,4 +39,4 @@ ADD files/redmine.conf /etc/httpd/conf.d/
 ADD files/initialize.sh /opt/redmine/
 
 EXPOSE 80
-ENTRYPOINT ["/opt/redmine/initialize.sh"]
+ENTRYPOINT sh /opt/redmine/initialize.sh

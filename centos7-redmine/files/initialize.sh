@@ -5,7 +5,7 @@ count=0
 while [ ! -e /var/lib/mysql/mysql.sock -o $count -le 10 ]
 do
 	sleep 1
-	count=`expr $count +1`
+	count=`expr $count + 1`
 done
 
 if [ ! -d /var/lib/mysql/redmine/ -a -e /var/lib/mysql/mysql.sock ];then
