@@ -1,0 +1,9 @@
+production:
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      address: "localhost"
+      port: 25
+      domain: 
+
+  rmagick_font_path: /usr/share/fonts/vlgothic/VL-Gothic-Regular.ttf
