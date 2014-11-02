@@ -1,21 +1,23 @@
 # usage
 
-    mkdir $HOME/rsyslog
+## create data container
 
+    FROM busybox
+    VOLUME /var/log/rsyslog
+    ENTRYPOINT tail -f /dev/null
+
+    docker build -t private/data:rsyslog .
+
+## run data container
+
+    docker run -d --name data_rsyslog private/data:rsyslog
+
+## run rsyslog container
+    
     docker run --privileged -it -d \
-      -v $HOME/rsyslog:/var/log/rsyslog \
       --name rsyslog \
-      tukiyo3/centos7-rsyslog
+        --volumes-from data_rsyslog tukiyo3/centos7-rsyslog
 
-or
-
-    docker run --privileged -it -d \
-      -p 514:514/udp \
-      -p 514:514/tcp \
-      -p 8080:80 \
-      -v $HOME/rsyslog:/var/log/rsyslog \
-      --name rsyslog \
-      tukiyo3/centos7-rsyslog
 
 # rsyslog (sender)
 
