@@ -1,6 +1,6 @@
 # usage
 
-## create data container
+## 1. create data container
 
     FROM busybox
     VOLUME /var/log/rsyslog
@@ -8,15 +8,16 @@
 
     docker build -t private/data:rsyslog .
 
-## run data container
+## 2. run data container
 
     docker run -d --name data_rsyslog private/data:rsyslog
 
-## run rsyslog container
+## 3. run rsyslog container
     
     docker run --privileged -it -d \
       --name rsyslog \
-        --volumes-from data_rsyslog tukiyo3/centos7-rsyslog
+      -p 514:514/udp -p 514:514/tcp -p 8080:80 \
+      --volumes-from data_rsyslog tukiyo3/centos7-rsyslog
 
 
 # rsyslog (sender)
