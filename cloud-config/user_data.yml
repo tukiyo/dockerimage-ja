@@ -1,7 +1,7 @@
 #cloud-config
 # curl -L http://goo.gl/eO5tbp -o cloud-config.yml
 # coreos-install -d /dev/vda -C alpha -V 472.0.0 -c cloud-config.yml
-hostname: core4
+hostname: core4.localdomain
 
 coreos:
   update:
@@ -27,7 +27,6 @@ coreos:
         Name=bond0
  
         [Network]
-        #DHCP=true
         Address=192.168.100.4/24
         Gateway=192.168.100.1
         DNS=8.8.8.8
@@ -35,9 +34,9 @@ coreos:
 # bond0 end
     - name: systemd-networkd.service
       command: restart
-    - name: sshd.socket
-      command: restart
-      content: "[Socket]\nListenStream=2222\nAccept=yes"
+#    - name: sshd.socket
+#      command: restart
+#      content: "[Socket]\nListenStream=2222\nAccept=yes"
 
 users:
   - name: core
