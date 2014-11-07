@@ -1,0 +1,68 @@
+#cloud-config
+# /var/lib/coreos-install/user_data
+hostname: core4
+
+coreos:
+  units:
+    - name: systemd-networkd.service
+      command: restart
+    - name: timezone.service
+      command: start
+      content: "[Unit]\nDescription=timezone\n[Service]\nType=oneshot\nRemainAfterExit=yes\nExecStart=/usr/bin/ln -sf /usr/share/zoneinfo/Japan /etc/localtime\n"
+    - name: sshd.socket
+      command: restart
+      content: "[Socket]\nAccept=yes\nListenStream=2222"
+  update:
+    reboot-strategy: off
+
+users:
+  - name: core
+    passwd: raizu1Ah
+    groups:
+      - sudo
+      - docker
+    coreos-ssh-import-github: tukiyo
+
+write_files:
+  - path: /etc/systemd/network/10-static.network
+    permissions: 0644
+    content: |
+      [Match]
+      Name=eth0
+
+      [Network]
+      Address=192.168.100.4/24
+      Gateway=192.168.100.1
+      DNS=8.8.8.8
+      DNS=8.8.4.4
+
+write_files:
+  - path: /home/core/.bashrc
+    permissions: 0644
+    owner: core
+    content: |
+      export TZ='Asia/Tokyo'
+      alias systemctl='sudo systemctl'
+      alias journalctl='sudo journalctl'
+      alias vi='vim -p'
+      alias d='sudo docker'
+      alias drun='sudo docker run --privileged -it -d'
+      alias dexec='sudo docker exec -it'
+      alias dps='sudo docker ps -a'
+      dexe() {
+          if [ -z "$1" ];then
+              sudo docker ps -a
+          else
+              sudo docker exec -it $1 bash
+          fi
+      }
+      #dcleanall() {
+      #    for c in `sudo docker ps -a | awk '/^[^C]/{print $1}'`
+      #    do
+      #        sudo docker rm -f $c
+      #    done
+      #}
+      ## snippet
+      # docker commit -a "tukiyo3 <tukiyo3@gmail.com>" e132e5667707 private/testenv
+      # docker save -o testenv.tar private/testenv
+      # docker load -i testenv.tar
