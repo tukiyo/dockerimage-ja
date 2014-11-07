@@ -1,19 +1,15 @@
 #cloud-config
-# /var/lib/coreos-install/user_data
+# curl -L http://goo.gl/eO5tbp -o cloud-config.yml
+# coreos-install -d /dev/vda -C alpha -V 472.0.0 -c cloud-config.yml
 hostname: core4
 
 coreos:
   update:
     reboot-strategy: off
   units:
-    - name: systemd-networkd.service
-      command: restart
     - name: timezone.service
       command: start
       content: "[Unit]\nDescription=timezone\n[Service]\nType=oneshot\nRemainAfterExit=yes\nExecStart=/usr/bin/ln -sf /usr/share/zoneinfo/Japan /etc/localtime\n"
-    - name: sshd.socket
-      command: restart
-      content: "[Socket]\nAccept=yes\nListenStream=2222"
 # bond0 start
     - name: eth0.network
       command: restart
@@ -37,6 +33,11 @@ coreos:
         DNS=8.8.8.8
         DNS=8.8.4.4
 # bond0 end
+    - name: systemd-networkd.service
+      command: restart
+    - name: sshd.socket
+      command: restart
+      content: "[Socket]\nListenStream=2222\nAccept=yes"
 
 users:
   - name: core
@@ -76,3 +77,14 @@ write_files:
       # docker commit -a "tukiyo3 <tukiyo3@gmail.com>" e132e5667707 private/testenv
       # docker save -o testenv.tar private/testenv
       # docker load -i testenv.tar
+
+  - path: /etc/ssh/sshd_config
+    permissions: 0600
+    owner: root:root
+    content: |
+        UsePrivilegeSeparation sandbox
+        Subsystem sftp internal-sftp
+        PermitRootLogin no
+        AllowUsers core
+        PasswordAuthentication yes
+        UseDNS no
