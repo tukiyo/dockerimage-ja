@@ -3,6 +3,8 @@
 hostname: core4
 
 coreos:
+  update:
+    reboot-strategy: off
   units:
     - name: systemd-networkd.service
       command: restart
@@ -12,8 +14,29 @@ coreos:
     - name: sshd.socket
       command: restart
       content: "[Socket]\nAccept=yes\nListenStream=2222"
-  update:
-    reboot-strategy: off
+# bond0 start
+    - name: eth0.network
+      command: restart
+      content: "[Match]\nName=eth0\n\n[Network]\nBond=bond0"
+    - name: eth1.network
+      command: restart
+      content: "[Match]\nName=eth1\n\n[Network]\nBond=bond0"
+    - name: bond0.netdev
+      command: restart
+      content: "[NetDev]\nName=bond0\nKind=bond"
+    - name: bond0.network
+      command: restart
+      content: |
+        [Match]
+        Name=bond0
+ 
+        [Network]
+        #DHCP=true
+        Address=192.168.100.4/24
+        Gateway=192.168.100.1
+        DNS=8.8.8.8
+        DNS=8.8.4.4
+# bond0 end
 
 users:
   - name: core
@@ -22,19 +45,6 @@ users:
       - sudo
       - docker
     coreos-ssh-import-github: tukiyo
-
-write_files:
-  - path: /etc/systemd/network/10-static.network
-    permissions: 0644
-    content: |
-      [Match]
-      Name=eth0
-
-      [Network]
-      Address=192.168.100.4/24
-      Gateway=192.168.100.1
-      DNS=8.8.8.8
-      DNS=8.8.4.4
 
 write_files:
   - path: /home/core/.bashrc
