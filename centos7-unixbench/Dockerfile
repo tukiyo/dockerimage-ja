@@ -10,4 +10,5 @@ RUN \
   make ;\
   yum clean all
 
-ENTRYPOINT ["/opt/UnixBench/Run.sh"]
+WORKDIR /opt/UnixBench
+ENTRYPOINT ["./Run"]
