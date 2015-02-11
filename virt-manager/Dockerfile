@@ -8,7 +8,7 @@ RUN \
     tightvncserver fonts-mona xterm \
     openssh-server openssh-client ssh-askpass \
     blackbox eterm \
-    xserver-xorg-core \
+    xserver-xorg-core xfonts-base \
     virt-manager hicolor-icon-theme \
     net-tools telnet ;\
   echo "## vnc setting -----------------------" ;\
@@ -35,3 +35,5 @@ RUN \
   apt-get update ;\
   mv /etc/apt/sources.list.bak /etc/apt/sources.list ;\
   echo "done"
+
+CMD sh /startup.sh
