@@ -39,4 +39,4 @@ RUN \
 ENV USER root
 ENV LANG ja_JP.UTF-8
 EXPOSE 5900
-ENTRYPOINT ["/startup.sh"]
+CMD ['sh', '/startup.sh']
