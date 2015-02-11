@@ -1,4 +1,4 @@
-FROM ubuntu-debootstrap:latest
+FROM ubuntu-debootstrap
 
 RUN \
   set -eux ;\
