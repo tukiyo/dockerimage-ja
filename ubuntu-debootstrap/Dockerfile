@@ -7,7 +7,7 @@ RUN \
   ln -s /usr/share/zoneinfo/Japan /etc/localtime ;\
   locale-gen ja_JP.UTF-8 ;\
   echo "## mirror ----------------------------" ;\
-  sed -i -e 's@^http://archive@http://jp.archive@' /etc/apt/sources.list ;\
+  sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list ;\
   apt-get update -qq ;\
   apt-get install -y vim-tiny dialog ;\
   echo "## cache clear -----------------------" ;\
