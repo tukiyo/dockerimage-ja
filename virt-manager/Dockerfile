@@ -35,8 +35,3 @@ RUN \
   apt-get update ;\
   mv /etc/apt/sources.list.bak /etc/apt/sources.list ;\
   echo "done"
-
-ENV USER root
-ENV LANG ja_JP.UTF-8
-EXPOSE 5900
-CMD ['sh', '/startup.sh']
