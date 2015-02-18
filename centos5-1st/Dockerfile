@@ -1,7 +1,7 @@
 FROM centos:centos5
 
 RUN \
-  exec >& /root/build-centos5-mine.log ;\
+  exec >& /root/build-centos5-1st.log ;\
   set -eux ;\
   unlink /etc/localtime ;\
   ln -s /usr/share/zoneinfo/Japan /etc/localtime ;\
