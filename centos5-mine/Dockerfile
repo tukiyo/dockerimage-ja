@@ -41,7 +41,7 @@ RUN \
   echo "[info] done."
 
 RUN \
-  exec >& /root/build-centos5-git2.5.log ;\
+  exec >& /root/build-centos5-git2.3.log ;\
   set -eux ;\
   yum install -y \
     curl-devel expat-devel gettext-devel openssl-devel zlib-devel ;\
