@@ -21,6 +21,7 @@ RUN \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
     net-snmp-libs ntp sysstat yum-utils \
     hwdata pciutils ruby ruby-libs virt-what \
+    man man-pages-ja \
     mutt postfix-pflogsumm ;\
   :;\
   chkconfig httpd on ;\
@@ -39,5 +40,15 @@ RUN \
   yum clean all ;\
   echo "[info] done."
 
-ENTRYPOINT ["/sbin/init"]
+RUN \
+  exec >& /root/build-centos5-git2.5.log ;\
+  set -eux ;\
+  yum install -y \
+    curl-devel expat-devel gettext-devel openssl-devel zlib-devel ;\
+  wget -O git-2.3.0.tar.gz https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.gz ;\
+  tar xzf /opt/git-2.3.0.tar.gz -C /opt ;\
+  (cd /opt/git-2.3.0 && ./configure && make all && make install) ;\
+  rm -r /opt/git-2.3.0* ;\
+  yum clean all
 
+ENTRYPOINT ["/sbin/init"]
