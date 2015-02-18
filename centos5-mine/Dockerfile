@@ -20,9 +20,8 @@ RUN \
     cvs bc at openssh-server nc which \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
     net-snmp-libs ntp sysstat yum-utils \
-  yum install -y \
     hwdata pciutils ruby ruby-libs virt-what \
-    mutt whitch postfix-pflogsumm ;\
+    mutt postfix-pflogsumm ;\
   :;\
   chkconfig httpd on ;\
   chkconfig postfix on ;\
