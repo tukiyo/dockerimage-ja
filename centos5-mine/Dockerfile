@@ -15,14 +15,22 @@ RUN \
     make gcc perl-Time-HiRes \
     anacron crontabs vixie-cron \
     whitch zip unzip telnet tcpdump sudo screen readline \
-    postfix procmail mailx \
+    postfix procmail mailx mutt \
     logwatch \
-    cvs bc at openssh-server nc \
+    cvs bc at openssh-server nc which \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
     net-snmp-libs ntp sysstat yum-utils ;\
   :;\
   chkconfig httpd on ;\
   chkconfig sshd on ;\
+  :;\
+  yum install -y epel-release ;\
+  yum install -y git tig etckeeper ;\
+  git config --global user.email "root@localhost.localdomain" ;\
+  git config --global user.name "root" ;\
+  etckeeper init ;\
+  etckeeper commit init ;\
+  yum remove -y epel-release ;\
   :;\
   yum update -y ;\
   yum clean all ;\
