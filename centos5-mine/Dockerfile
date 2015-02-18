@@ -29,7 +29,7 @@ RUN \
   chkconfig sshd on ;\
   :;\
   yum install -y epel-release ;\
-  yum install -y git tig etckeeper ;\
+  yum install -y git tig etckeeper ack ;\
   git config --global user.email "root@localhost.localdomain" ;\
   git config --global user.name "root" ;\
   etckeeper init ;\
