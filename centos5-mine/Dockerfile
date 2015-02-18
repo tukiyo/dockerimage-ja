@@ -23,13 +23,9 @@ RUN \
   :;\
   chkconfig httpd on ;\
   chkconfig sshd on ;\
+  :;\
   yum update -y ;\
   yum clean all ;\
-  :;\
-  echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf ;\
-  echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf ;\
-  /sbin/sysctl -p ;\
-  :;\
   echo "[info] done."
 
 ENTRYPOINT ["/sbin/init"]
