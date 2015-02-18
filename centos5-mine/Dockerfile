@@ -12,19 +12,20 @@ RUN \
     httpd httpd-devel \
     gd \
     nkf wget vim-enhanced w3m python-simplejson \
-    make gcc perl-Time-HiRes \
+    make gcc \
     anacron crontabs vixie-cron \
-    whitch zip unzip telnet tcpdump sudo screen readline \
-    postfix procmail mailx mutt \
+    zip unzip telnet tcpdump sudo screen readline \
+    postfix procmail mailx \
     logwatch \
     cvs bc at openssh-server nc which \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
     net-snmp-libs ntp sysstat yum-utils ;\
+  yum install -y \
+    epel-release mutt perl-Time-HiRes whitch \
   :;\
   chkconfig httpd on ;\
   chkconfig sshd on ;\
   :;\
-  yum install -y epel-release ;\
   yum install -y git tig etckeeper ;\
   git config --global user.email "root@localhost.localdomain" ;\
   git config --global user.name "root" ;\
