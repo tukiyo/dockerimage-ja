@@ -36,19 +36,15 @@ RUN \
   etckeeper commit init ;\
   yum remove -y epel-release ;\
   :;\
-  yum update -y ;\
-  yum clean all ;\
-  echo "[info] done."
-
-RUN \
-  exec >& /root/build-centos5-git2.3.log ;\
-  set -eux ;\
   yum install -y \
     curl-devel expat-devel gettext-devel openssl-devel zlib-devel ;\
   wget -O /opt/git-2.3.0.tar.gz https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.gz ;\
   tar xzf /opt/git-2.3.0.tar.gz -C /opt ;\
   (cd /opt/git-2.3.0 && ./configure && make all && make install) ;\
   rm -r /opt/git-2.3.0* ;\
-  yum clean all
+  :;\
+  yum update -y ;\
+  yum clean all ;\
+  echo "[info] done."
 
 ENTRYPOINT ["/sbin/init"]
