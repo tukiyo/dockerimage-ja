@@ -4,8 +4,8 @@ RUN \
   exec >& /root/build-centos5.log ;\
   set -eux ;\
   :;\
-  unlink /etc/localtime ;\
-  ln -s /usr/share/zoneinfo/Japan /etc/localtime ;\
+  sed -i -e 's/^ZONE/#ZONE/g' -e '1i ZONE="Asia/Tokyo"' /etc/sysconfig/clock ;\
+  /usr/sbin/tzdata-update ;\
   localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 ;\
   :;\
   yum install -y \
