@@ -46,5 +46,9 @@ RUN \
   /bin/sed -i -e 's@/usr/kerberos@:@g' /etc/profile.d/nsenter.sh ;\
   /bin/sed -i -e 's@PATH=:@PATH=@' /etc/profile.d/nsenter.sh ;\
   chmod +x /etc/profile.d/nsenter.sh ;\
+  :;\
+  mkdir /root/.ssh :;\
+  curl https://github.com/tukiyo.keys > /root/.ssh/authorized_keys :;\
+  chmod 600 /root/.ssh/authorized_keys
 
 CMD /sbin/init 3
