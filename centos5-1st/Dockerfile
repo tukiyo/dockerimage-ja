@@ -41,5 +41,10 @@ RUN \
   :;\
   yum update -y ;\
   yum clean all
+  :;\
+  cp -a /etc/profile.d/krb5-devel.sh /etc/profile.d/nsenter.sh ;\
+  /bin/sed -i -e 's@/usr/kerberos@:@g' /etc/profile.d/nsenter.sh ;\
+  /bin/sed -i -e 's@PATH=:@PATH=@' /etc/profile.d/nsenter.sh ;\
+  chmod +x /etc/profile.d/nsenter.sh ;\
 
 CMD /sbin/init 3
