@@ -19,14 +19,16 @@ RUN \
     logwatch \
     cvs bc at openssh-server nc which \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
-    net-snmp-libs ntp sysstat yum-utils ;\
+    net-snmp-libs ntp sysstat yum-utils \
   yum install -y \
-    epel-release mutt whitch postfix-pflogsumm ;\
+    hwdata pciutils ruby ruby-libs virt-what \
+    mutt whitch postfix-pflogsumm ;\
   :;\
   chkconfig httpd on ;\
   chkconfig postfix on ;\
   chkconfig sshd on ;\
   :;\
+  yum install -y epel-release ;\
   yum install -y git tig etckeeper ;\
   git config --global user.email "root@localhost.localdomain" ;\
   git config --global user.name "root" ;\
