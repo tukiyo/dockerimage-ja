@@ -40,7 +40,7 @@ RUN \
     curl-devel expat-devel gettext-devel openssl-devel zlib-devel ;\
   :;\
   yum update -y ;\
-  yum clean all
+  yum clean all ;\
   :;\
   cp -a /etc/profile.d/krb5-devel.sh /etc/profile.d/nsenter.sh ;\
   /bin/sed -i -e 's@/usr/kerberos@:@g' /etc/profile.d/nsenter.sh ;\
