@@ -21,7 +21,7 @@ RUN \
     gpg distcache libmcrypt lm_sensors mhash mod_ssl net-snmp \
     net-snmp-libs ntp sysstat yum-utils ;\
   yum install -y \
-    epel-release mutt perl-Time-HiRes whitch \
+    epel-release mutt perl-Time-HiRes whitch ;\
   :;\
   chkconfig httpd on ;\
   chkconfig sshd on ;\
