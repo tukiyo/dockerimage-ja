@@ -19,7 +19,7 @@ RUN \
     cvs bc at openssh-server nc ;\
   chkconfig httpd on ;\
   chkconfig sshd on ;\
-  yum install -y ;\
+  yum update -y ;\
   yum clean all ;\
   echo "[info] done."
 
