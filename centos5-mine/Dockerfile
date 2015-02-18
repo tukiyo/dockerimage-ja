@@ -13,5 +13,3 @@ RUN \
   tar xzf /opt/stone-2.3e.tar.gz -C /opt ;\
   (cd /opt/stone*/ && sed -i -e 's@-DUSE_EPOLL@-DUSE_EPOLL -D_GNU_SOURCE@' Makefile && make linux && mv -f stone /usr/local/bin/) ;\
   rm -rf /opt/stone*
-
-CMD /sbin/init 3
