@@ -51,4 +51,4 @@ RUN \
   curl https://github.com/tukiyo.keys > /root/.ssh/authorized_keys ;\
   chmod 600 /root/.ssh/authorized_keys
 
-ENTRYPOINT ["/sbin/init","3"]
+CMD /sbin/init 3
