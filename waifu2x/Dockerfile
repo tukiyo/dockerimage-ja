@@ -12,5 +12,6 @@ RUN set -eux &&\
 
 RUN ln -s /opt/waifu2x-converter-cpp.git/waifu2x-converter-cpp /usr/local/bin/waifu2x
 
+WORKDIR /opt/waifu2x-converter-cpp.git
 # usage: waifu2x -i hoge.png
 ENTRYPOINT /usr/local/bin/waifu2x $@
