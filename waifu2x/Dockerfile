@@ -10,7 +10,7 @@ RUN set -eux &&\
     git clone https://github.com/khws4v1/waifu2x-converter-cpp.git /opt/waifu2x-converter-cpp.git &&\
     (cd /opt/waifu2x-converter-cpp.git && ./build.sh)
 
-RUN ln -s /opt/waifu2x-converter-cpp/waifu2x-converter-cpp /usr/local/bin/waifu2x
+RUN ln -s /opt/waifu2x-converter-cpp.git/waifu2x-converter-cpp /usr/local/bin/waifu2x
 
 # usage: waifu2x -i hoge.png
 ENTRYPOINT /usr/local/bin/waifu2x $@
