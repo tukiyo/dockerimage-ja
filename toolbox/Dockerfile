@@ -4,8 +4,8 @@ RUN \
   set -eux &&\
   echo "## localize --------------------------" &&\
   echo "Asia/Tokyo" > /etc/timezone &&\
-  cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
   dpkg-reconfigure --frontend noninteractive tzdata &&\
+  cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
   locale-gen ja_JP.UTF-8 &&\
   echo "## mirror ----------------------------" &&\
   sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list &&\
