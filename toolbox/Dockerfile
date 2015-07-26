@@ -5,7 +5,6 @@ RUN \
   echo "## localize --------------------------" &&\
   echo "Asia/Tokyo" > /etc/timezone &&\
   dpkg-reconfigure --frontend noninteractive tzdata &&\
-  cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
   locale-gen ja_JP.UTF-8 &&\
   echo "## mirror ----------------------------" &&\
   sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list &&\
@@ -22,8 +21,9 @@ RUN \
   echo "## settings -----------------------" &&\
   update-alternatives --install /bin/sh sh /bin/bash 1 &&\
   update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100 &&\
-  echo -e "sy on\nse hlserch\nse nowrapscan\nse wrap\ncolorscheme desert" > /root/.vimrc &&\
-  echo "source /etc/bash_completion" > /root/.bash_profile &&\
+  echo "se hlsearch" > /root/.vimrc &&\
+  echo "TZ='Asia/Tokyo'; export TZ" > /root/.bash_profile &&\
+  echo "source /etc/bash_completion" >> /root/.bash_profile &&\
   echo "## clean -----------------------" &&\
   apt-get clean &&\
   echo "done"
