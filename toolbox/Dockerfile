@@ -20,9 +20,10 @@ RUN \
 
 RUN \
   cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
-  apt-get install -y tig python-dev &&\
+  apt-get install -y tig python-dev manpages-ja manpages-ja-dev bash-completion autossh openssh-server &&\
   pip install ansible &&\
   update-alternatives --install /bin/sh sh /bin/bash 1 &&\
   update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100 &&\
   echo -e "sy on\nse hlserch\nse nowrapscan\nse wrap\ncolorscheme desert" > /root/.vimrc &&\
+  echo "source /etc/bash_completion" > /root/.bash_profile &&\
   echo "done"
