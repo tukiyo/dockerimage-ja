@@ -20,4 +20,9 @@ RUN \
 
 RUN \
   cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
+  apt-get install -y tig python-dev &&\
+  pip install ansible &&\
+  update-alternatives --install /bin/sh sh /bin/bash 1 &&\
+  update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100 &&\
+  echo -e "sy on\nse hlserch\nse nowrapscan\nse wrap\ncolorscheme desert" > /root/.vimrc &&\
   echo "done"
