@@ -17,3 +17,7 @@ RUN \
   echo "## settings -----------------------" &&\
   apt-get clean &&\
   echo "done"
+
+RUN \
+  cp -a /usr/share/zoneinfo/Japan /etc/localtime &&\
+  echo "done"
