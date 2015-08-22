@@ -1,4 +1,4 @@
-FROM ubuntu-debootstrap:latest
+FROM ubuntu-debootstrap:15.10
 
 RUN \
   unlink /etc/localtime ;\
@@ -15,8 +15,14 @@ RUN mkdir /root/.ssh && \
     chmod 600 /root/.ssh/authorized_keys
 RUN curl https://github.com/tukiyo.keys -o /root/.ssh/authorized_keys
 RUN update-rc.d ssh defaults
-#RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
 RUN mkdir /workspace && chmod 777 /workspace
+
+RUN apt-get install -y \
+    coffeescript npm rails php5 mongodb mysql-client mysql-server python-pip \
+    sqlite3 phpmyadmin ruby-dev python-dev gccgo-go openjdk-7-jre \
+    postfix mutt mailutils sharutils \
+    tightvncserver stone jq fonts-takao telnet \
+    man-db manpages-ja manpages-ja-dev ack-grep ansible puppet
 
 ENV SHELL /bin/bash
 WORKDIR /workspace
@@ -24,4 +30,6 @@ VOLUME ["/workspace"]
 CMD /etc/init.d/rc 2 && ip a s | grep "inet " && tail -f -n0 /var/log/dmesg
 EXPOSE 22 80 443 8000 8080 3389 5901 5902
 
+
+#RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
 # docker run -it -d --name dev tukiyo3/ubuntu-dev
