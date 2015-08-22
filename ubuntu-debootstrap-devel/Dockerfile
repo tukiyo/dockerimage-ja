@@ -10,8 +10,8 @@ RUN apt-get update -qq
 RUN apt-get install -y \
     ssh curl apache2 build-essential vim tmux screen tig ranger w3m nkf
 RUN mkdir /root/.ssh && \
-    curl -q https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub \
-         -o /root/.ssh/authorized_keys &&\
+    (curl -q https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub \
+         > /root/.ssh/authorized_keys) &&\
     chmod 600 /root/.ssh/authorized_keys
 #RUN curl https://github.com/tukiyo.keys -o /root/.ssh/authorized_keys
 RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
