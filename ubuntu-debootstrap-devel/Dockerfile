@@ -4,7 +4,7 @@ RUN \
   unlink /etc/localtime ;\
   ln -s /usr/share/zoneinfo/Japan /etc/localtime ;\
   locale-gen ja_JP.UTF-8 ;\
-  sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list ;\
+  sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list
 
 RUN apt-get update -qq
 RUN apt-get install -y \
