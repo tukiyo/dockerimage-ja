@@ -24,14 +24,20 @@ RUN DEBIAN_FRONTEND=noninteractive \
     tightvncserver stone jq fonts-takao telnet zsh \
     man-db manpages-ja manpages-ja-dev ack-grep ansible puppet
 
+RUN usermod -d /var/lib/mysql mysql &&\
+    mysql_install_db
+
 #RUN update-rc.d ssh defaults
 
 ENV SHELL /bin/bash
 WORKDIR /workspace
 VOLUME ["/workspace"]
 CMD /etc/init.d/rc 2 && ip a s | grep "inet " && tail -f -n0 /var/log/dmesg
-EXPOSE 22 80 443 8000 8080 3389 5901 5902
+EXPOSE 22 80 443 3306 8000 8080 3389 5901 5902
 
 
 #RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
+
 # docker run -it -d --name dev tukiyo3/ubuntu-dev
+# docker logs dev
+# ssh root@ipaddr
