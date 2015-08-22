@@ -7,7 +7,8 @@ RUN \
   sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list ;\
 
 RUN apt-get update -qq
-RUN apt-get install -y ssh curl apache2 build-essential vim
+RUN apt-get install -y \
+    ssh curl apache2 build-essential vim tmux screen tig ranger w3m nkf
 RUN mkdir /root/.ssh && \
     curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub \
          -o /root/.ssh/authorized_keys &&\
