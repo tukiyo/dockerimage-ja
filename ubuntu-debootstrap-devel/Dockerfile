@@ -13,8 +13,9 @@ RUN mkdir /root/.ssh && \
     (curl -q https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub \
          > /root/.ssh/authorized_keys) &&\
     chmod 600 /root/.ssh/authorized_keys
-#RUN curl https://github.com/tukiyo.keys -o /root/.ssh/authorized_keys
-RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
+RUN curl https://github.com/tukiyo.keys -o /root/.ssh/authorized_keys
+RUN update-rc.d ssh defaults
+#RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
 RUN mkdir /workspace && chmod 777 /workspace
 
 ENV SHELL /bin/bash
@@ -23,4 +24,4 @@ VOLUME ["/workspace"]
 CMD /etc/init.d/rc 2 && ip a s | grep "inet " && tail -f -n0 /var/log/dmesg
 EXPOSE 22 80 443 8000 8080 3389 5901 5902
 
-# docker run -it --net host ContainerID
+# docker run -it -d --name dev tukiyo3/ubuntu-dev
