@@ -35,9 +35,14 @@ VOLUME ["/workspace"]
 CMD /etc/init.d/rc 2 && ip a s | grep "inet " && tail -f -n0 /var/log/dmesg
 EXPOSE 22 80 443 3306 8000 8080 3389 5901 5902
 
+RUN useradd vagrant -d /home/vagrant -m &&\
+    cp -a /root/.ssh /home/vagrant/ &&\
+    chown -R vagrant:vagrant /home/vagrant/.ssh &&\
+    (echo "vagrant ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant)
+
 
 #RUN sed -i.org -e 's/Port 22/Port 10022/' /etc/ssh/sshd_config
 
-# docker run -it -d --name dev tukiyo3/ubuntu-dev
+# docker run -it -d --name dev vagrant/ubuntu-dev
 # docker logs dev
-# ssh root@ipaddr
+# ssh vagrant@ipaddr
