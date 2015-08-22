@@ -35,7 +35,7 @@ VOLUME ["/workspace"]
 CMD /etc/init.d/rc 2 && ip a s | grep "inet " && tail -f -n0 /var/log/dmesg
 EXPOSE 22 80 443 3306 8000 8080 3389 5901 5902
 
-RUN useradd vagrant -d /home/vagrant -m &&\
+RUN useradd vagrant -d /home/vagrant -m -s /bin/bash &&\
     cp -a /root/.ssh /home/vagrant/ &&\
     chown -R vagrant:vagrant /home/vagrant/.ssh &&\
     (echo "vagrant ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant)
