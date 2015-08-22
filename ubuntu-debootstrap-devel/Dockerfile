@@ -16,7 +16,8 @@ RUN mkdir /root/.ssh && \
 RUN curl https://github.com/tukiyo.keys -o /root/.ssh/authorized_keys
 RUN mkdir /workspace && chmod 777 /workspace
 
-RUN apt-get install -y -qq \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y -qq \
     coffeescript npm rails php5 mongodb mysql-client mysql-server python-pip \
     sqlite3 phpmyadmin ruby-dev python-dev golang openjdk-7-jre \
     postfix mutt mailutils sharutils \
