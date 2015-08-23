@@ -44,9 +44,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
     vim-gtk fcitx-mozc bash-completion
 RUN (echo alias open='thunar' >> /home/vagrant/.bashrc)
 
-RUN install --mode=600 -o vagrant /home/vagrant/.ssh &&\
-    (wget -o /home/vagrant/.ssh/authorized_keys \
-     https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub) &&\
+RUN install --directory --mode=600 -o vagrant /home/vagrant/.ssh &&\
+    wget -O /home/vagrant/.ssh/authorized_keys \
+     https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub &&\
     chmod 600 /home/vagrant/.ssh/authorized_keys &&\
     chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
 
