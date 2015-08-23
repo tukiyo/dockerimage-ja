@@ -39,8 +39,9 @@ RUN useradd vagrant -d /home/vagrant -m -s /bin/bash &&\
 RUN apt-get install -y -qq avahi-daemon
 
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y -qq xfce4 firefox firefox-locale-ja vim-gtk \
-    fcitx-mozc bash-completion
+    apt-get install -y -qq xfce4 xfce4-terminal gnome-icon-theme-full \
+    firefox firefox-locale-ja \
+    vim-gtk fcitx-mozc bash-completion
 RUN (echo alias open='thunar' >> /home/vagrant/.bashrc)
 
 RUN install --mode=600 -o vagrant /home/vagrant/.ssh &&\
