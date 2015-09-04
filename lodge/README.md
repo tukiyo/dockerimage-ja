@@ -1,1 +1,1 @@
-bin/rails server -e production でアクセスするとエラーになる・・・
+port 3000
