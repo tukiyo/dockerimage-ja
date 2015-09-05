@@ -22,7 +22,10 @@ RUN bundle install --path vendor/bundle
 ENV SECRET_KEY_BASE b8c6ef9169409e5370b9859c321733c4ccb52235a2b5a64c0a6fb5d65960b59c56ae6f19b726202cee12436ab2d8c7d16190067574c1ccd005933f3292c47a6a
 ENV LODGE_THEME lodge
 RUN rake db:create RAILS_ENV=production
+
+# I wan't use mail service.
 RUN sed -i -e '/to_sym/d' config/environments/production.rb
+
 RUN rake db:migrate RAILS_ENV=production
 
 CMD rails server -e production
