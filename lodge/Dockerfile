@@ -27,5 +27,7 @@ RUN rake db:create RAILS_ENV=production
 RUN sed -i -e '/to_sym/d' config/environments/production.rb
 
 RUN rake db:migrate RAILS_ENV=production
-
+RUN (echo "now = Time.now" > db/seeds.rb &&\
+     echo "User.create(email: 'admin@localhost.localdomain', name: 'admin', password: 'changeme!', confirmed_at: now)" >> db/seeds.rb)
+RUN rake db:seed RAILS_ENV=production
 CMD rails server -e production

@@ -9,14 +9,13 @@ RUN \
   locale-gen ja_JP.UTF-8 ;\
   apt-get clean
 
-RUN mkdir /app
-
 WORKDIR /tmp
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
+COPY ./app/Gemfile Gemfile
+COPY ./app/Gemfile.lock Gemfile.lock
 RUN bundle install
 
 ADD ./app /app
 WORKDIR /app
+
 VOLUME /app
 EXPOSE 3000
