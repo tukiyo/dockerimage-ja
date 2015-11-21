@@ -22,12 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
       xfce4-terminal xfce4-screenshooter \
       firefox firefox-locale-ja vim-gtk fcitx-mozc \
       thunderbird-locale-ja \
-      lubuntu-artwork \
-      lubuntu-artwork-15-10 \
-      lubuntu-core \
-      lubuntu-default-session \
-      lubuntu-default-settings \
-      lubuntu-icon-theme \
+      \
       lubuntu-lxpanel-icons \
       lubuntu-artwork \
       lubuntu-artwork-15-10 \
@@ -40,7 +35,7 @@ RUN dpkg --add-architecture i386 &&\
     apt-get update -qq &&\
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y -qq \
-      wine1.6-i386 \
+      wine1.6-i386
 
 # add vagrant user
 RUN useradd vagrant -d /home/vagrant -m -s /usr/bin/fizsh &&\
