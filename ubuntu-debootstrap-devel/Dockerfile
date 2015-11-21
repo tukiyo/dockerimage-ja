@@ -1,30 +1,66 @@
 FROM ubuntu-debootstrap:15.10
 
+# ja
 RUN \
   unlink /etc/localtime ;\
   ln -s /usr/share/zoneinfo/Japan /etc/localtime ;\
   locale-gen ja_JP.UTF-8 ;\
   sed -i -e 's@http://archive@http://jp.archive@' /etc/apt/sources.list
 
+# update
 RUN apt-get update -qq
+
 RUN apt-get install -y -qq \
     ssh curl apache2 build-essential vim tmux screen tig ranger w3m nkf
-RUN mkdir /workspace && chmod 777 /workspace
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -y -qq \
-    coffeescript npm rails php5 mongodb mysql-client mysql-server python-pip \
-    sqlite3 phpmyadmin ruby-dev python-dev golang openjdk-7-jre \
-    postfix mutt mailutils sharutils \
-    tightvncserver stone jq fonts-takao telnet zsh \
-    man-db manpages-ja manpages-ja-dev ack-grep ansible puppet
+      tightvncserver stone jq fonts-takao telnet fizsh \
+      man-db manpages-ja manpages-ja-dev ack-grep ansible \
+      avahi-daemon \
+      xrdp \
+      xfce4-terminal xfce4-screenshooter \
+      firefox firefox-locale-ja vim-gtk fcitx-mozc \
+      thunderbird-locale-ja \
+      lubuntu-artwork \
+      lubuntu-artwork-15-10 \
+      lubuntu-core \
+      lubuntu-default-session \
+      lubuntu-default-settings \
+      lubuntu-icon-theme \
+      lubuntu-lxpanel-icons \
+      lubuntu-artwork \
+      lubuntu-artwork-15-10 \
+      lubuntu-core \
+      lubuntu-default-session \
+      lubuntu-default-settings \
+      lubuntu-icon-theme
 
-RUN usermod -d /var/lib/mysql mysql &&\
-    mysql_install_db
+RUN dpkg --add-architecture i386 &&\
+    apt-get update -qq &&\
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y -qq \
+      wine1.6-i386 \
 
-ENV SHELL /bin/bash
-VOLUME ["/home/vagrant"]
-EXPOSE 22 80 8000
+# add vagrant user
+RUN useradd vagrant -d /home/vagrant -m -s /usr/bin/fizsh &&\
+    (echo "vagrant:vagrant" | chpasswd) &&\
+    (echo "vagrant ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant)
+
+RUN install --directory --mode=644 -o vagrant /home/vagrant/.fizsh &&\
+    (echo alias open='pcmanfm' >> /home/vagrant/.fizsh/.fizshrc)
+
+RUN install --directory --mode=600 -o vagrant /home/vagrant/.ssh &&\
+    wget -O /home/vagrant/.ssh/authorized_keys \
+      https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub &&\
+    chmod 600 /home/vagrant/.ssh/authorized_keys &&\
+    chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
+
+# env
+ENV SHELL /usr/bin/fizsh
+ENV DISPLAY :0.0
+VOLUME ["/tmp/.X11-unix"]
+EXPOSE 22
 CMD service ssh start &&\
     service dbus start &&\
     service avahi-daemon start &&\
@@ -32,29 +68,6 @@ CMD service ssh start &&\
     echo "ssh user:pass = vagrant:vagrant" &&\
     tail -f -n0 /var/log/dmesg
 
-RUN useradd vagrant -d /home/vagrant -m -s /bin/bash &&\
-    (echo "vagrant:vagrant" | chpasswd) &&\
-    (echo "vagrant ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant)
-
-RUN apt-get install -y -qq avahi-daemon
-
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y -qq xfce4 xfce4-terminal gnome-icon-theme-full \
-    firefox firefox-locale-ja \
-    vim-gtk fcitx-mozc bash-completion
-RUN (echo alias open='thunar' >> /home/vagrant/.bashrc)
-
-RUN install --directory --mode=600 -o vagrant /home/vagrant/.ssh &&\
-    wget -O /home/vagrant/.ssh/authorized_keys \
-     https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub &&\
-    chmod 600 /home/vagrant/.ssh/authorized_keys &&\
-    chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
-
-#RUN wget -O /opt/sublime-text_build-3083_amd64.deb http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3083_amd64.deb
-#RUN dpkg -i /opt/sublime-text_build-3083_amd64.deb
-
-
 # docker run -it -d --name dev -h dev.local tukiyo3/ubuntu-dev
 # docker logs dev
-# wget -o ~/.ssh/id_rsa.vagrant https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant
 # ssh vagrant@dev.local -i ~/.ssh/id_rsa.vagrant
