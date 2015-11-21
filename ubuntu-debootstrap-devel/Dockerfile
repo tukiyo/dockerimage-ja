@@ -59,16 +59,18 @@ RUN install --directory --mode=700 -o vagrant -g vagrant /home/vagrant/.ssh &&\
 # env
 USER vagrant
 ENV SHELL /usr/bin/fizsh
+ENV LANG=ja_JP.UTF-8
 ENV DISPLAY :0.0
 VOLUME ["/tmp/.X11-unix"]
 EXPOSE 22
-CMD sudo service ssh start &&\
-    sudo service dbus start &&\
-    sudo service avahi-daemon start &&\
+CMD sudo service dbus start &&\
+    sudo service ssh start &&\
     sudo service xrdp start &&\
     ip a | grep "inet " &&\
-    echo "ssh user:pass = vagrant:vagrant" &&\
+    echo "ssh vagrant@ipaddr. pass:vagrant" &&\
     sudo tail -f -n0 /var/log/dmesg
+
+    #sudo service avahi-daemon start &&\
 
 # docker run -it -d --name dev -h dev.local tukiyo3/ubuntu-dev
 # docker logs dev
