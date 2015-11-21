@@ -22,6 +22,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
       xfce4-terminal xfce4-screenshooter \
       firefox firefox-locale-ja vim-gtk fcitx-mozc \
       thunderbird-locale-ja \
+      language-pack-ja \
+      language-pack-ja-base \
       \
       lubuntu-lxpanel-icons \
       lubuntu-artwork \
@@ -42,26 +44,31 @@ RUN useradd vagrant -d /home/vagrant -m -s /usr/bin/fizsh &&\
     (echo "vagrant:vagrant" | chpasswd) &&\
     (echo "vagrant ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/vagrant)
 
-RUN install --directory --mode=644 -o vagrant /home/vagrant/.fizsh &&\
-    (echo alias open='pcmanfm' >> /home/vagrant/.fizsh/.fizshrc)
+RUN install --directory --mode=755 -o vagrant -g vagrant /home/vagrant/.fizsh &&\
+    (echo alias open='pcmanfm' >> /home/vagrant/.fizsh/.fizshrc) &&\
+    (echo export GTK_IM_MODULE=fcitx    >> /home/vagrant/.fizsh/.fizshrc) &&\
+    (echo export QT_IM_MODULE=fcitx     >> /home/vagrant/.fizsh/.fizshrc) &&\
+    (echo export XMODIFIERS="@im=fcitx" >> /home/vagrant/.fizsh/.fizshrc)
 
-RUN install --directory --mode=600 -o vagrant /home/vagrant/.ssh &&\
+RUN install --directory --mode=700 -o vagrant -g vagrant /home/vagrant/.ssh &&\
     wget -O /home/vagrant/.ssh/authorized_keys \
       https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub &&\
     chmod 600 /home/vagrant/.ssh/authorized_keys &&\
     chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
 
 # env
+USER vagrant
 ENV SHELL /usr/bin/fizsh
 ENV DISPLAY :0.0
 VOLUME ["/tmp/.X11-unix"]
 EXPOSE 22
-CMD service ssh start &&\
-    service dbus start &&\
-    service avahi-daemon start &&\
+CMD sudo service ssh start &&\
+    sudo service dbus start &&\
+    sudo service avahi-daemon start &&\
+    sudo service xrdp start &&\
     ip a | grep "inet " &&\
     echo "ssh user:pass = vagrant:vagrant" &&\
-    tail -f -n0 /var/log/dmesg
+    sudo tail -f -n0 /var/log/dmesg
 
 # docker run -it -d --name dev -h dev.local tukiyo3/ubuntu-dev
 # docker logs dev
