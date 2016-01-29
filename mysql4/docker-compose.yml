@@ -1,0 +1,7 @@
+mysql4:
+  image: tukiyo3/mysql4
+  ports:
+    - "3306:3306"
+  volumes:
+    - ./db/:/var/lib/mysql/
+    - ./my.cnf:/etc/my.cnf
