@@ -13,9 +13,10 @@ RUN \
   && install -d -o mysql -g mysql -m 0755 /var/run/mysqld \
   && /opt/mysql/bin/mysql_install_db --user=mysql
 
-COPY mysqld_start.sh /opt/mysqld_start.sh
+RUN echo 'export PATH=/opt/mysql/bin:$PATH' >> /root/.bashrc
+COPY files/my.cnf /etc/my.cnf
+COPY files/mysqld_start.sh /opt/mysqld_start.sh
 
-WORKDIR /opt/mysql/bin/
+ENTRYPOINT /opt/mysqld_start.sh
 EXPOSE 3306
 VOLUME "/var/lib/mysql"
-ENTRYPOINT /opt/mysqld_start.sh
