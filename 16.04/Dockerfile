@@ -9,7 +9,6 @@ RUN \
     # set timezone
     ln -s -f /usr/share/zoneinfo/Asia/Tokyo /etc/localtime &&\
     dpkg-reconfigure tzdata &&\
-    # add locales
     aptget.sh fonts-takao sudo &&\
     # generate locale
     locale-gen ja_JP.UTF-8
@@ -28,6 +27,7 @@ WORKDIR ${HOME}
 # X
 ENV DISPLAY :0.0
 VOLUME /tmp/.X11-unix
+VOLUME ${HOME}
 USER ${USER}
 
 # add packages
