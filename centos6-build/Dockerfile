@@ -21,9 +21,9 @@ RUN \
 
 RUN \
   yum install -y gettext \
-  rpm -ivh https://raw.githubusercontent.com/tukiyo/mysql4.0.30.el6/master/rpmbuild/RPMS/x86_64/checkinstall-20150420-1.x86_64.rpm \
-  ln -s /usr/local/lib/installwatch.so /usr/local/lib64/installwatch.so \
-  checkinstall -y -R --pkgname=opt-mysql4 \
-  ls -lh /root/rpmbuild/RPMS/x86_64/*.rpm
+  && rpm -ivh https://raw.githubusercontent.com/tukiyo/mysql4.0.30.el6/master/rpmbuild/RPMS/x86_64/checkinstall-20150420-1.x86_64.rpm \
+  && ln -s /usr/local/lib/installwatch.so /usr/local/lib64/installwatch.so \
+  && checkinstall -y -R --pkgname=opt-mysql4 \
+  && ls -lh /root/rpmbuild/RPMS/x86_64/*.rpm
 
 VOLUME /root/rpmbuild/RPMS/x86_64/
