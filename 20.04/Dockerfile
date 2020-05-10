@@ -18,7 +18,7 @@ RUN export uid=1000 gid=1000 \
  && echo "${USER}:x:${uid}:${gid}:Developer,,,:${HOME}:/bin/bash" >> /etc/passwd \
  && echo "${USER}:x:${uid}:" >> /etc/group \
  && echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
- && chmod -R ${uid}:${gid} ${HOME}
+ && chown -R ${uid}:${gid} ${HOME}
 
 # X
 ENV DISPLAY :0.0
