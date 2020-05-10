@@ -6,7 +6,7 @@ RUN echo 'apt-get update -qq && apt-get install -yq $@ && apt-get clean && rm -r
 
 # locale
 RUN ln -s -f /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
- && pkgadd.sh fonts-vlgothic sudo \
+ && pkgadd.sh fonts-vlgothic sudo locales \
  && locale-gen ja_JP.UTF-8
 ENV LANG ja_JP.UTF-8
 
